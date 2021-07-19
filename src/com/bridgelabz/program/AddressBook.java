@@ -1,107 +1,66 @@
 package com.bridgelabz.program;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
+import com.entity.Entity;
 
 public class AddressBook {
-
-	private  String FirstName;
-	private String LastName;
-	private String Address;
-	private	String city;
-	private String state;
-	private String zip ;
-	private String PhoneNumber;
-	ArrayList<String> information = new ArrayList<String>();
-	Scanner sc = new Scanner(System.in);
-
 	
-	  void addressInput(){
+	static Scanner sc = new Scanner(System.in);
+	static ArrayList<Entity> list = new ArrayList<Entity>();
+
+public static void main(String[] args ){
+	AddressBook addressBook  = new AddressBook();
+	System.out.println("Enter the data in book ");	
+	addressBook.showUserOption();
 		
-		  System.out.println(" Enter the Data of Address ") ;
-		  System.out.println("enter the FirstName");
-		  FirstName = sc.next();
-		  information.add(FirstName);
-          System.out.println("enter the lastname");
-          LastName =  sc.next();
-		  information.add(LastName);
-		  System.out.println("enter the address"); 
-		  Address = sc.next();
-		  information.add(Address); 
-		  System.out.println("enter the city");       
-		  city = sc.next();                                          
-		  information.add(city);
-		  System.out.println("enter the state");
-		  state = sc.next();
-		  information.add(state);
-		  System.out.println("enter your zip ");
-		  zip = sc.next();
-		  information.add(zip);
-		  System.out.println("enter the phonenumber ");
-		  PhoneNumber = sc.next();
-		  information.add(PhoneNumber);
-		  
-	  }  
-	  void showUserOption() {
-		  System.out.println(" press any key if you want to.\n 1. Update data \n 2. Delete data ");
-		  int input = sc.nextInt();
-			  switch (input ) {
-			  case 1 : 
-				  changeDetails();
-				  break;
-			  case 2 :
-				  delete();
-				  break;
-				
-			 	  
-			  default : 
-				  System.out.println(" enter correct input");
-				  break;	  
-		  }		 
-	  }
-  	  
-	  void changeDetails() {
-		  System.out.println("  Enter the location and updated detail. .\n 0.FirstName \n 1.LastName \n 2.Address \n 3.city \n 4.state \n 5. zip \n 6.Phonenumber   ");
-		  int position = sc.nextInt();
-		  String data = sc.next();	  
-		  information.set(position, data);
-		  System.out.println("--Updated Address ----");
-		  Iterator<String>  itr = information.iterator();
-
-		  while (itr.hasNext()) {
-			  Object obj = itr.next();
-			  System.out.println(obj);
-		  }		  
-	  }		  
-	  
-
-	  void delete() {
-		 
-		  System.out.println(" Enter the location which you want to remove.\n 0.FirstName \n 1.LastName \n 2.Address \n 3.city \n 4.state \n 5. zip \n 6.Phonenumber   ");
-		  int position = sc.nextInt();
-		  information.remove(position);
-		  System.out.println("--Updated Address ----");
-		  Iterator<String>  itr = information.iterator();
-		  while (itr.hasNext()) {
-			  Object obj = itr.next();
-			  System.out.println(obj);
-	  }
-	  }
-	  void display() {
-		  
-		  System.out.println(information);
-		  
-	  }
-	  
 	
-	  public static void main(String[] args ){
-		  System.out.println("---------------Welcome to the Address book----------------------- ");
-		  AddressBook addressbook = new AddressBook();
-		  addressbook.addressInput();		 
-		  addressbook.display();
-		  addressbook.showUserOption();
-	    	  
-	  }
+	}
+
+	public void addData() {
+		Entity e = new Entity();
+		System.out.println("Enter first name");
+		e.setFirstName(sc.next());
+		System.out.println("Enter last name");
+		e.setLastName(sc.next());
+		System.out.println("Enter the address");
+		e.setAddress(sc.next());
+		System.out.println("Enter the city");
+		e.setCity(sc.next());
+		System.out.println("Enter the state");
+		e.setState(sc.next());
+		System.out.println("Enter the zip");
+		e.setZip(sc.next());
+		System.out.println("Enter the phonenumber");
+		e.setPhoneNumber(sc.next());
+		list.add(e);
+		System.out.println(e);	
+	}
+	public void print() {
+		for (Entity element : list) {
+			System.out.println(element);
+		}
+	}
+	public void showUserOption() {
+		int choice = 0;
+		while (choice != 10) {
+			System.out.println("1.Add contact details\n2. Show data in Book\n 10.Exit ");
+			choice = sc.nextInt();
+			switch (choice) {
+			case 1 : 
+				addData();
+				break;
+			case 2 : 
+				print();
+				break;
+			case 10 : 
+				break;
+			default : 
+				System.out.println("Please enter correct input ");
+				break;
+			}
+	
+		}
+	}
 }
