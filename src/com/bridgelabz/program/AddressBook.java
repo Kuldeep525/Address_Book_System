@@ -3,8 +3,6 @@ package com.bridgelabz.program;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.bridgelabz.address.AddressBookUC2;
-
 public class AddressBook {
 
 
