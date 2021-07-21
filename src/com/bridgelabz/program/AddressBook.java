@@ -1,9 +1,13 @@
 package com.bridgelabz.program;
 
+import java.util.Comparator;
+
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.entity.Entity;
 
@@ -19,8 +23,64 @@ public static void main(String[] args ){
 		
 	
 	}
+	public void showUserOption() {
+		int choice = 0;
+		while (choice != 10) {
+			System.out.println("1.Add contact details\n2. Show data in Book\n3.Edit existing contact\n4.Delete person\n5.Search\n6.sort by name \n7.sort by city\n 10.Exit ");
+			choice = sc.nextInt();
+			switch (choice) {
+			case 1 : 
+				addData();
+				break;
+			case 2 : 
+				print();
+				break;
+			case 3 : 
+				editPerson();
+				break;	
+			case 4 : 
+				deletePerson();
+				break;	
+			case 5 : 
+				search();
+				break;		
+			case 6 : 
+				sortByName();
+				break;	
+			case 7 : 
+				sortByCity();
+				break;		
+			case 10 : 
+				search2();
+				break;
+			default : 
+				System.out.println("Please enter correct input ");
+			break;
+			}
 
+		}
+}
+
+
+	private void sortByCity() {
+		List<Entity> sortedList = list.stream() .sorted(Comparator.comparing(Entity::
+			getCity)) .collect(Collectors.toList());
+		sortedList.forEach(System.out::println);
+		    }
+	private void sortByName() {
+		List<Entity> sortedList = list.stream() .sorted(Comparator.comparing(Entity::
+			getFirstName)) .collect(Collectors.toList());
+		sortedList.forEach(System.out::println);
+		 
+
+		    }
+	public void search2() {
+		Entity searchName = list.stream().filter(list -> "kuldeep".equals
+				(list.getFirstName())).findAny().orElse(null);	
+	}
+		
 	public void addData() {
+		
 		Entity e = new Entity();
 		System.out.println("Enter first name");
 		e.setFirstName(sc.next());
@@ -44,38 +104,7 @@ public static void main(String[] args ){
 			System.out.println(element);
 		}
 	}
-	public void showUserOption() {
-		int choice = 0;
-		while (choice != 10) {
-			System.out.println("1.Add contact details\n2. Show data in Book\n3.Edit existing contact\n4.Delete person\n5.Search 10.Exit ");
-			choice = sc.nextInt();
-			switch (choice) {
-			case 1 : 
-				addData();
-				break;
-			case 2 : 
-				print();
-				break;
-			case 3 : 
-				editPerson();
-				break;	
-			case 4 : 
-				deletePerson();
-				break;	
-			case 5 : 
-				search();
-				break;		
-			case 10 : 
-				break;
-			default : 
-				System.out.println("Please enter correct input ");
-				break;
-			}
 	
-		}
-	}
-	
-
 	public void editPerson() {
 		System.out.println("Enter the name to edit person detail");
 		String person = sc.next();
@@ -170,8 +199,9 @@ public static void main(String[] args ){
 		if(personName == null) {
 			System.out.println("No such person in book ");
 		}
-		else {
+		else {	
 			list.remove(personName);
+
 		}
 		
 	}
@@ -180,7 +210,7 @@ public static void main(String[] args ){
 		System.out.println("Enter the city");
 		String city = sc.next() ;
 		for (Entity entity : list) {
-			if(entity.getCity().equalsIgnoreCase(city));{
+			if(entity.getCity().contains(city));{
 				System.out.println(entity);
 				count ++;
 		}
